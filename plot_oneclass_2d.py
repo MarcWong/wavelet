@@ -1,13 +1,8 @@
 """
 ==========================================
-One-class SVM with non-linear kernel (RBF)
+2-D SVM
+author: Wan Bingqi
 ==========================================
-
-An example using a one-class SVM for novelty detection.
-
-:ref:`One-class SVM <svm_outlier_detection>` is an unsupervised
-algorithm that learns a decision function for novelty detection:
-classifying new data as similar or different to the training set.
 """
 print(__doc__)
 
@@ -16,13 +11,13 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager
 from sklearn import svm
 
+####### 一些参数 #######
 train_size = 10000
 test_size = 1024
 miu = 0
 sigma = 0.1
-### 网格的粒度是第三个参数
-xx, yy = np.meshgrid(np.linspace(-1, 1, 1000), np.linspace(-1, 1, 1000))
-# Generate train data
+
+####### 训练集 #######  Generate train data
 X_train = np.random.normal(miu, sigma, (train_size, 2))
 Y_train = np.zeros(train_size)
 
@@ -30,35 +25,47 @@ for i in range(0, train_size):
     # if abnormal, Y_train = 1
     if (X_train[i][0] * X_train[i][0] + X_train[i][1] * X_train[i][1] > (sigma * 2) * (sigma * 2)):
         Y_train[i] = 1
-print(Y_train[Y_train == 1].size)
-#for i in range(0,train_size):
-  #  X_train[i][1] = 0
+print("总样本点：", train_size, "，异常样本点：", Y_train[Y_train == 1].size)
+
+####### 测试集 #######
 # Generate some regular novel observations
-a = np.random.normal(miu, sigma, (test_size, 2))
-#for i in range(0,test_size):
-   # a[i][1] = 0
-for i in range(650,800):
-    #a[i][0] = a[i][0] + 0.1
-    a[i][:] = a[i][:] + 0.1
-X_test = np.r_[a[0:649], a[800:1024]]
+X_test = np.random.normal(miu, sigma, (test_size, 2))
+Y_test = np.zeros(test_size)
+
+for i in range(0, test_size):
+    # if abnormal, Y_test = 1
+    if (X_test[i][0] * X_test[i][0] + X_test[i][1] * X_test[i][1] > (sigma * 2) * (sigma * 2)):
+        Y_test[i] = 1
+
 # Generate some abnormal novel observations
-X_outliers = a[650:800]
+X_outliers = np.random.normal(miu, sigma, (test_size, 2))
+for i in range(650,800):
+    X_outliers[i][:] = X_outliers[i][:] + 0.1
 
 
+####### svm #######
 # fit the model
 # clf = svm.OneClassSVM(nu=0.03, kernel="rbf", gamma=0.1)
-clf = svm.SVC()
+clf = svm.SVC(gamma="auto")
 clf.fit(X_train, Y_train)
 y_pred_train = clf.predict(X_train)
-print(y_pred_train)
-print(y_pred_train.size)
 y_pred_test = clf.predict(X_test)
 y_pred_outliers = clf.predict(X_outliers)
 n_error_train = y_pred_train[y_pred_train == 1].size
 n_error_test = y_pred_test[y_pred_test == 1].size
-n_error_outliers = y_pred_outliers[y_pred_outliers == -1].size
+n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
 
-# print (n_error_train, n_error_test, n_error_outliers);
+# 统计训练集上的表现
+cnt = 0
+for i in range(0, test_size):
+    # if the prediction is same to groundtruth, increase the counter
+    if (Y_test[i] == y_pred_test[i]):
+        cnt += 1
+
+
+####### 画图 #######
+# 网格的粒度是第三个参数
+xx, yy = np.meshgrid(np.linspace(-1, 1, 1000), np.linspace(-1, 1, 1000))
 
 # plot the line, the points, and the nearest vectors to the plane
 Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
@@ -77,7 +84,7 @@ c = plt.scatter(X_outliers[:, 0], X_outliers[:, 1], c='gold', s=s,
                 edgecolors='k')
 plt.axis('tight')
 
-### X, Y的显示上下界
+# X, Y的显示上下界在这里修改
 plt.xlim((-1, 1))
 plt.ylim((-1, 1))
 plt.legend([a.collections[0], b1, b2, c],
@@ -89,4 +96,10 @@ plt.xlabel(
     "error train: %d/%d ; errors novel regular: %d/%d ; "
     "errors novel abnormal: %d/%d"
     % (n_error_train, train_size, n_error_test, test_size, n_error_outliers, test_size))
+
+plt.text(
+    0.5, -0.8,
+    "test mIoU: %.2f"
+    % (cnt / test_size))
+    
 plt.show()
