@@ -1,36 +1,43 @@
 """
 ==========================================
-One-class SVM with non-linear kernel (RBF)
+SVDD
 ==========================================
-
-An example using a one-class SVM for novelty detection.
-
-:ref:`One-class SVM <svm_outlier_detection>` is an unsupervised
-algorithm that learns a decision function for novelty detection:
-classifying new data as similar or different to the training set.
 """
 print(__doc__)
 
+import random
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.font_manager
 from sklearn import svm
 
+####### 一些参数 #######
 train_size = 10000
-test_size = 1024
-a = np.random.normal(0,0.1,test_size)
-for i in range(650,800):
-    a[i] = a[i] + 0.1
+test_size = 10000
+miu = 0
+sigma = 0.1
 
-# xx, yy = np.meshgrid(np.linspace(-5, 5, 500), np.linspace(-5, 5, 500))
-# Generate train data
-X_train = np.random.normal(0,0.1,train_size).reshape(-1, 1)
-# Generate some regular novel observations
-X_test = np.r_[a[0:649], a[800:1024]].reshape(-1, 1)
+raw_data = np.loadtxt("../data/2327_20170131-03-zs.csv",delimiter=",",skiprows=1)
+
+####### 训练集 #######
+# start = round(random.random() * raw_data.shape[0])
+start = round(0.2 * raw_data.shape[0])
+print(start)
+X_train = raw_data[start:start+train_size,:]
+print(X_train.shape)
+
+
+####### 测试集 #######
+# start = round(random.random() * raw_data.shape[0])
+start = round(0.3 * raw_data.shape[0])
+print(start)
+X_test = raw_data[start:start+test_size,:]
+print(X_test.shape)
+
 # Generate some abnormal novel observations
-X_outliers = a[650:800].reshape(-1, 1)
+X_outliers = np.random.normal(miu, sigma, (test_size, 42))
 
-
+####### svdd #######
 # fit the model
 clf = svm.OneClassSVM(nu=0.1, kernel="rbf", gamma=0.1)
 clf.fit(X_train)
@@ -41,9 +48,13 @@ n_error_train = y_pred_train[y_pred_train == -1].size
 n_error_test = y_pred_test[y_pred_test == -1].size
 n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
 
-print (n_error_train, n_error_test, n_error_outliers);
+print ("error train: %d/%d ; errors test regular: %d/%d ; "
+    "errors test abnormal: %d/%d"
+    % (n_error_train, train_size, n_error_test, test_size, n_error_outliers, test_size))
 
-# plot the line, the points, and the nearest vectors to the plane
+####### 画图 #######
+# 网格的粒度是第三个参数
+# xx, yy = np.meshgrid(np.linspace(-1, 1, 1000), np.linspace(-1, 1, 1000))
 # Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
 # Z = Z.reshape(xx.shape)
 
@@ -59,15 +70,15 @@ print (n_error_train, n_error_test, n_error_outliers);
 # c = plt.scatter(X_outliers[:, 0], X_outliers[:, 1], c='gold', s=s,
 #                 edgecolors='k')
 # plt.axis('tight')
-# plt.xlim((-5, 5))
-# plt.ylim((-5, 5))
+# plt.xlim((-1, 1))
+# plt.ylim((-1, 1))
 # plt.legend([a.collections[0], b1, b2, c],
 #            ["learned frontier", "training observations",
 #             "new regular observations", "new abnormal observations"],
 #            loc="upper left",
 #            prop=matplotlib.font_manager.FontProperties(size=11))
 # plt.xlabel(
-#     "error train: %d/200 ; errors novel regular: %d/40 ; "
-#     "errors novel abnormal: %d/40"
-#     % (n_error_train, n_error_test, n_error_outliers))
+#     "error train: %d/%d ; errors test regular: %d/%d ; "
+#     "errors test abnormal: %d/%d"
+#     % (n_error_train, train_size, n_error_test, test_size, n_error_outliers, test_size))
 # plt.show()

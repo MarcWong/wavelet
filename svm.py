@@ -1,6 +1,6 @@
 """
 ==========================================
-2-D SVM
+SVM
 ==========================================
 """
 print(__doc__)
@@ -11,8 +11,8 @@ import matplotlib.font_manager
 from sklearn import svm
 
 ####### 一些参数 #######
-train_size = 10000
-test_size = 1024
+train_size = 300
+test_size = 100
 miu = 0
 sigma = 0.1
 p = 2
