@@ -12,45 +12,31 @@ import matplotlib.font_manager
 from sklearn import svm
 
 ####### 一些参数 #######
-train_size = 10000
-test_size = 10000
-miu = 0
-sigma = 0.1
+data_size = 1024
 
-raw_data = np.loadtxt("../data/2327_20170131-03-zs.csv",delimiter=",",skiprows=1)
 
 ####### 训练集 #######
-# start = round(random.random() * raw_data.shape[0])
-start = round(0.2 * raw_data.shape[0])
-print(start)
-X_train = raw_data[start:start+train_size,:]
+X_train = np.load('../data/2327_20170131-03-zs/1.npy').reshape(-1, 1)
 print(X_train.shape)
 
 
 ####### 测试集 #######
-# start = round(random.random() * raw_data.shape[0])
-start = round(0.3 * raw_data.shape[0])
-print(start)
-X_test = raw_data[start:start+test_size,:]
+X_test = np.load('../data/2678_20161209-06-zs/1.npy').reshape(-1, 1)
 print(X_test.shape)
 
-# Generate some abnormal novel observations
-X_outliers = np.random.normal(miu, sigma, (test_size, 42))
 
 ####### svdd #######
 # fit the model
+
 clf = svm.OneClassSVM(nu=0.1, kernel="rbf", gamma=0.1)
 clf.fit(X_train)
-y_pred_train = clf.predict(X_train)
+y_pred_train = clf.fit_predict(X_train)
 y_pred_test = clf.predict(X_test)
-y_pred_outliers = clf.predict(X_outliers)
-n_error_train = y_pred_train[y_pred_train == -1].size
-n_error_test = y_pred_test[y_pred_test == -1].size
-n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
+n_abnormal_train = y_pred_train[y_pred_train == -1].size
+n_abnormal_test = y_pred_test[y_pred_test == -1].size
 
-print ("error train: %d/%d ; errors test regular: %d/%d ; "
-    "errors test abnormal: %d/%d"
-    % (n_error_train, train_size, n_error_test, test_size, n_error_outliers, test_size))
+print ("abnormal train: %d/%d ; abnormal test: %d/%d ; "
+    % (n_abnormal_train, 1024, n_abnormal_test, 1024))
 
 ####### 画图 #######
 # 网格的粒度是第三个参数
