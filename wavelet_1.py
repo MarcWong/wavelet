@@ -5,10 +5,14 @@ import pywt
 from EWMA0 import EWMA
 import matplotlib.pyplot as plt
 
-sample_size = 1000000
+
+raw_data = np.loadtxt("../data/2327_20170131-03-zs.csv",delimiter=",",skiprows=1)
+
+# sample_size = 1000000
 p = 1
 j = 2
-data = np.random.normal(0,0.1,sample_size)
+# data = np.random.normal(0,0.1,sample_size)
+data = raw_data[:,7]
 mu = np.mean(data)
 sigma = np.var(data)
 wavelet_coefficient = pywt.wavedec(data,'haar',level=j)
@@ -21,20 +25,14 @@ mu_D1 = np.mean(wavelet_coefficient[2])
 sigma_D1 = np.var(wavelet_coefficient[2])
 
 
-sample_size = 1024
-a = np.random.normal(0,0.1,sample_size)
-
-for i in range(650,800):
-    a[i] = a[i] + 0.1
-
 plt.figure(1)
 plt.rcParams['figure.dpi'] = 100
-plt.plot(range(0,1024),a,linewidth = 0.4,c='black')
+plt.plot(range(0,data.size),data,linewidth = 0.4,c='black')
 plt.ylabel('data')
 plt.xlabel('time/s')
 plt.show()
 
-data = a
+# data = a
 old_data = list(data[0:4])
 wavelet_coefficient = pywt.wavedec(old_data,'haar',level=j)
 for i in range(0,3):
