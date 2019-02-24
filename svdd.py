@@ -30,7 +30,7 @@ print(X_test.shape)
 
 clf = svm.OneClassSVM(nu=0.1, kernel="rbf", gamma=0.1)
 clf.fit(X_train)
-y_pred_train = clf.fit_predict(X_train)
+y_pred_train = clf.predict(X_train)
 y_pred_test = clf.predict(X_test)
 n_abnormal_train = y_pred_train[y_pred_train == -1].size
 n_abnormal_test = y_pred_test[y_pred_test == -1].size
