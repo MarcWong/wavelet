@@ -86,7 +86,8 @@ for x in range(6,42):
 
     for i in range(0,j+1):
         plt.rcParams['figure.dpi'] = 100
-        # ctrlcht[i].plot()
+        if x == 7:
+            ctrlcht[i].plot()
 
     output_name = str(filename) + '/' + str(x - 5) + '.npy'
     np.save(output_name, wavelet_coefficient[0] + wavelet_coefficient[1] + wavelet_coefficient[2] )
