@@ -12,23 +12,24 @@ import matplotlib.font_manager
 from sklearn import svm
 
 ####### 一些参数 #######
-data_size = 1024
 
 
 ####### 训练集 #######
-X_train = np.load('../data/2327_20170131-03-zs/1.npy').reshape(-1, 1)
+X_train = np.load('../data/2587_20161109-02-zs/13.npy')
+train_size = X_train.shape[0]
 print(X_train.shape)
 
 
 ####### 测试集 #######
-X_test = np.load('../data/2678_20161209-06-zs/1.npy').reshape(-1, 1)
+X_test = np.load('../data/2778_20170127-07-zs/20.npy')
+test_size = X_test.shape[0]
 print(X_test.shape)
 
 
 ####### svdd #######
 # fit the model
 
-clf = svm.OneClassSVM(nu=0.1, kernel="rbf", gamma=0.1)
+clf = svm.OneClassSVM(nu=0.001, kernel="rbf", gamma=0.001)
 clf.fit(X_train)
 y_pred_train = clf.predict(X_train)
 y_pred_test = clf.predict(X_test)
@@ -36,7 +37,7 @@ n_abnormal_train = y_pred_train[y_pred_train == -1].size
 n_abnormal_test = y_pred_test[y_pred_test == -1].size
 
 print ("abnormal train: %d/%d ; abnormal test: %d/%d ; "
-    % (n_abnormal_train, 1024, n_abnormal_test, 1024))
+    % (n_abnormal_train, train_size, n_abnormal_test, test_size))
 
 ####### 画图 #######
 # 网格的粒度是第三个参数
