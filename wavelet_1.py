@@ -5,7 +5,7 @@ import pywt
 from EWMA0 import EWMA
 import matplotlib.pyplot as plt
 
-filename = '../data/2327_20170131-03-zs'
+filename = '../data/2778_20170127-07-zs'
 raw_data_name = str(filename) + '.csv'
 raw_data = np.loadtxt(raw_data_name, delimiter=",", skiprows=1)
 
@@ -93,10 +93,10 @@ for x in range(6,42):
 
     output_arr = np.array([])
     ll = int(data.size / 4)
-    for k in range(0, ll - 1):
-        tmp = np.array([wavelet_coefficient[0][k], wavelet_coefficient[0][k+1], wavelet_coefficient[1][k], wavelet_coefficient[2][k]])
+    for k in range(0, ll):
+        tmp = np.array([wavelet_coefficient[0][k], wavelet_coefficient[1][k], wavelet_coefficient[2][k]])
         output_arr = np.concatenate([output_arr,tmp], axis=0)
-    output_arr = np.reshape(output_arr, (ll - 1, 4))
+    output_arr = np.reshape(output_arr, (ll, 3))
     print(output_arr.shape)
     output_name = str(filename) + '/' + str(x - 5) + '.npy'
     np.save(output_name, output_arr )
