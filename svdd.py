@@ -15,13 +15,13 @@ from sklearn import svm
 
 
 ####### 训练集 #######
-X_train = np.load('../data/2587_20161109-02-zs/13.npy')
+X_train = np.load('../data/2587_20161109-02-zs/13.npy')[:, np.array([0,2])] 
 train_size = X_train.shape[0]
 print(X_train.shape)
 
 
 ####### 测试集 #######
-X_test = np.load('../data/2778_20170127-07-zs/20.npy')
+X_test = np.load('../data/2778_20170127-07-zs/20.npy')[:, np.array([0,2])]
 test_size = X_test.shape[0]
 print(X_test.shape)
 
@@ -41,31 +41,31 @@ print ("abnormal train: %d/%d ; abnormal test: %d/%d ; "
 
 ####### 画图 #######
 # 网格的粒度是第三个参数
-# xx, yy = np.meshgrid(np.linspace(-1, 1, 1000), np.linspace(-1, 1, 1000))
-# Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
-# Z = Z.reshape(xx.shape)
+xx, yy = np.meshgrid(np.linspace(np.min(X_test), np.max(X_test), 1000), np.linspace(np.min(X_test), np.max(X_test), 1000))
+Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
 
-# plt.title("Novelty Detection")
-# plt.contourf(xx, yy, Z, levels=np.linspace(Z.min(), 0, 7), cmap=plt.cm.PuBu)
-# a = plt.contour(xx, yy, Z, levels=[0], linewidths=2, colors='darkred')
-# plt.contourf(xx, yy, Z, levels=[0, Z.max()], colors='palevioletred')
+plt.title("Novelty Detection")
+plt.contourf(xx, yy, Z, levels=np.linspace(Z.min(), 0, 7), cmap=plt.cm.PuBu)
+a = plt.contour(xx, yy, Z, levels=[0], linewidths=2, colors='darkred')
+plt.contourf(xx, yy, Z, levels=[0, Z.max()], colors='palevioletred')
 
-# s = 40
-# b1 = plt.scatter(X_train[:, 0], X_train[:, 1], c='white', s=s, edgecolors='k')
-# b2 = plt.scatter(X_test[:, 0], X_test[:, 1], c='blueviolet', s=s,
-#                  edgecolors='k')
-# c = plt.scatter(X_outliers[:, 0], X_outliers[:, 1], c='gold', s=s,
-#                 edgecolors='k')
-# plt.axis('tight')
-# plt.xlim((-1, 1))
-# plt.ylim((-1, 1))
-# plt.legend([a.collections[0], b1, b2, c],
-#            ["learned frontier", "training observations",
-#             "new regular observations", "new abnormal observations"],
-#            loc="upper left",
-#            prop=matplotlib.font_manager.FontProperties(size=11))
-# plt.xlabel(
-#     "error train: %d/%d ; errors test regular: %d/%d ; "
-#     "errors test abnormal: %d/%d"
-#     % (n_error_train, train_size, n_error_test, test_size, n_error_outliers, test_size))
-# plt.show()
+s = 40
+b1 = plt.scatter(X_train[:, 0], X_train[:, 1], c='white', s=s, edgecolors='k')
+b2 = plt.scatter(X_test[:, 0], X_test[:, 1], c='blueviolet', s=s,
+                 edgecolors='k')
+c = plt.scatter(X_outliers[:, 0], X_outliers[:, 1], c='gold', s=s,
+                 edgecolors='k')
+plt.axis('tight')
+plt.xlim((-1, 1))
+plt.ylim((-1, 1))
+plt.legend([a.collections[0], b1, b2, c],
+            ["learned frontier", "training observations",
+             "new regular observations", "new abnormal observations"],
+            loc="upper left",
+            prop=matplotlib.font_manager.FontProperties(size=11))
+plt.xlabel(
+     "error train: %d/%d ; errors test regular: %d/%d ; "
+     "errors test abnormal: %d/%d"
+     % (n_error_train, train_size, n_error_test, test_size, n_error_outliers, test_size))
+plt.show()
