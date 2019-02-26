@@ -21,7 +21,7 @@ print(X_train.shape)
 
 
 ####### 测试集 #######
-X_test = np.load('../data/2778_20170127-07-zs/20.npy')[:,:2] 
+X_test = np.load('../data/2618_20170102-07-zs/13.npy')[:,:2]
 test_size = X_test.shape[0]
 print(X_test.shape)
 
@@ -48,15 +48,14 @@ a = plt.contour(xx, yy, Z, levels=[0], linewidths=2, colors='darkred')
 
 plt.title("Novelty Detection")
 
-s = 1
-b1 = plt.scatter(X_train[:, 0], X_train[:, 1], c='white', s=s, edgecolors='k')
-b2 = plt.scatter(X_test[:, 0], X_test[:, 1], c='blueviolet', s=s,
-                 edgecolors='k')
+s = 2
+b1 = plt.scatter(X_train[:, 0], X_train[:, 1], c='b', s=s)
+b2 = plt.scatter(X_test[:, 0], X_test[:, 1], c='m', s=s)
 # c = plt.scatter(X_outliers[:, 0], X_outliers[:, 1], c='gold', s=s,
 #                  edgecolors='k')
 plt.axis('tight')
 # plt.xlim((-1, 1))
-# plt.ylim((-1, 1))
+plt.ylim((-20, 20))
 plt.legend([a.collections[0], b1, b2],
             ["learned frontier", "training observations",
              "new regular observations"],
