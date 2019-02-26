@@ -15,13 +15,13 @@ from sklearn import svm
 
 
 ####### 训练集 #######
-X_train = np.load('../data/2587_20161109-02-zs/13.npy')[:, 1:] 
+X_train = np.load('../data/2587_20161109-02-zs/13.npy')[:,:2]  
 train_size = X_train.shape[0]
 print(X_train.shape)
 
 
 ####### 测试集 #######
-X_test = np.load('../data/2778_20170127-07-zs/20.npy')[:, 1:]
+X_test = np.load('../data/2778_20170127-07-zs/20.npy')[:,:2] 
 test_size = X_test.shape[0]
 print(X_test.shape)
 
@@ -48,7 +48,7 @@ a = plt.contour(xx, yy, Z, levels=[0], linewidths=2, colors='darkred')
 
 plt.title("Novelty Detection")
 
-s = 40
+s = 1
 b1 = plt.scatter(X_train[:, 0], X_train[:, 1], c='white', s=s, edgecolors='k')
 b2 = plt.scatter(X_test[:, 0], X_test[:, 1], c='blueviolet', s=s,
                  edgecolors='k')
