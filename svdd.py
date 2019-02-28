@@ -12,16 +12,16 @@ import matplotlib.font_manager
 from sklearn import svm
 
 ####### 一些参数 #######
-
+raw_data = np.load('../data/2544_20160907-13-zs/10.npy')[:, np.array([0,2])] 
 
 ####### 训练集 #######
-X_train = np.load('../data/2587_20161109-02-zs/13.npy')[:,:2]  
+X_train = raw_data[: int(raw_data.shape[0] / 2), :]
 train_size = X_train.shape[0]
 print(X_train.shape)
 
 
 ####### 测试集 #######
-X_test = np.load('../data/2618_20170102-07-zs/13.npy')[:,:2]
+X_test = raw_data[int(raw_data.shape[0] / 2):, :] 
 test_size = X_test.shape[0]
 print(X_test.shape)
 
@@ -54,8 +54,8 @@ b2 = plt.scatter(X_test[:, 0], X_test[:, 1], c='m', s=s)
 # c = plt.scatter(X_outliers[:, 0], X_outliers[:, 1], c='gold', s=s,
 #                  edgecolors='k')
 plt.axis('tight')
-# plt.xlim((-1, 1))
-plt.ylim((-20, 20))
+# plt.xlim((-100, 100))
+# plt.ylim((-100, 100))
 plt.legend([a.collections[0], b1, b2],
             ["learned frontier", "training observations",
              "new regular observations"],
