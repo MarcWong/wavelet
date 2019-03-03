@@ -5,17 +5,11 @@ import pywt
 from EWMA0 import EWMA
 import matplotlib.pyplot as plt
 
-j = 2
-
-XMIN = -1.5
-YMIN = -1.5
-XMAX = 1.5
-YMAX = 1.5
 # 绘图的点大小
 s = 5
 
 # 一维真实数据
-def wavelet(data):
+def wavelet(data, j):
 
     mu = np.mean(data)
     sigma = np.var(data)

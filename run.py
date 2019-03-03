@@ -9,8 +9,8 @@ from data_generation import generateData
 from svm import doSvm
 
 ####### 一些参数 #######
-TRAIN = 10000
-TEST = 10000
+TRAIN = 5000
+TEST = 5000
 # 异常数据占比
 ABNORMAL_RATE = 0.1
 # 正常数据的均值、方差
@@ -25,5 +25,8 @@ YMIN = -1.0
 XMAX = 1.0
 YMAX = 1.0
 
-generateData(TRAIN, TEST, ABNORMAL_RATE, MIU, SIGMA, MIU_ABNORMAL, SIGMA_ABNORMAL)
+# 小波变换的级数
+LEVEL = 3
+
+generateData(TRAIN, TEST, ABNORMAL_RATE, MIU, SIGMA, MIU_ABNORMAL, SIGMA_ABNORMAL, LEVEL)
 doSvm(ABNORMAL_RATE, XMIN, YMIN, XMAX, YMAX)
