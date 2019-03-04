@@ -144,7 +144,7 @@ def wavelet(Y, J):
     plt.plot(Y_ewma,color = "black")
     plt.plot(ucl_wrewma, color = "black")
     plt.plot(lcl_wrewma, color = "black")
-    plt.show()
+    # plt.show()
 
 
 
@@ -168,7 +168,7 @@ def wavelet(Y, J):
     plt.plot(Y_base,color = "black")
     plt.plot(ucl_base,color = "black")
     plt.plot(lcl_base,color = "black")
-    plt.show()
+    # plt.show()
 
 
     #################### PLOT 3 METHODS
@@ -220,8 +220,9 @@ def wavelet(Y, J):
         plt.plot(coef_ewma, color = "black")
         plt.plot(ucl,color = "black")
         plt.plot(lcl,color = "black")
-    plt.show()
+    # plt.show()
 
+    return np.array(coef_denoise).T
 
     """
 

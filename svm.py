@@ -64,7 +64,7 @@ def doSvm(ABNORMAL_RATE, XMIN, YMIN, XMAX, YMAX):
     # plot the line, the points, and the nearest vectors to the plane
     Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
     Z = Z.reshape(xx.shape)
-
+    plt.figure("svm")
     plt.title("2-D SVM")
     plt.contourf(xx, yy, Z, levels=np.linspace(Z.min(), 0, 7), cmap=plt.cm.PuBu)
     a = plt.contour(xx, yy, Z, levels=[0], linewidths=2, colors='darkred')
