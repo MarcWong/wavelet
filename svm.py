@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.font_manager
 from sklearn import svm
+from utils.utils import f1calc
 
 def split_X(data, abnormal_rate):
     abnormal_size = int(data.shape[0] * abnormal_rate)
@@ -52,23 +53,11 @@ def doSvm(ABNORMAL_RATE, XMIN, YMIN, XMAX, YMAX):
     n_error_train = y_pred_train[y_pred_train == 1].size
     n_error_test = y_pred_test[y_pred_test == 1].size
 
-    # 统计正常训练集上的表现
-    TP = 0
-    TN = 0
-    FP = 0
-    FN = 0
-    for i in range(0, TEST):
-        # 判断预测值与真值是否一致
-        if (Y_test[i] == y_pred_test[i] == 0):
-            TP += 1
-        elif (Y_test[i] == y_pred_test[i] == 1):
-            TN += 1
-        elif (Y_test[i] != y_pred_test[i] and Y_test[i] == 1):
-            FP += 1
-        else:
-            FN += 1
+    # 统计精度，召回率
+    recall, precision, F1 = f1calc(Y_test, y_pred_test)
 
-    print ("test set recall: ", TP/ (TP+FN),"; precision:", TP/ (TP+FP), "F1-score:", 2*TP/(2*TP + FP + FN))
+
+    print ("test set recall: ", recall,"; precision:", precision, "F1-score:", F1)
     ####### 画图 #######
     # 网格的粒度是第三个参数
     # xx, yy = np.meshgrid(np.linspace(XMIN, XMAX, 1000), np.linspace(YMIN, YMAX, 1000))

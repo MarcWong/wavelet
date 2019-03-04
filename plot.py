@@ -48,6 +48,13 @@ def UCL(i, mu0, L, sigma, lam):
 def LCL(i, mu0, L, sigma, lam):
     return mu0 - L * sigma *np.sqrt(lam/(2 - lam) * (1 - (1 - lam)**(2*i)))
 
+def stats(Y, ub, lb):
+    result = np.ones(N)
+    for i in range(N):
+        if Y[i] < ub[i] and Y[i] > lb[i]:
+            result[i] = 0
+    return result
+
 def wavelet(Y, J):
     #################### Generate data
 
@@ -141,9 +148,9 @@ def wavelet(Y, J):
     for i in range(N):
         lcl_wrewma[i] = LCL(i+1, mu, Ll_wrewma, sd_wrewma, lam)
 
-    plt.plot(Y_ewma,color = "black")
-    plt.plot(ucl_wrewma, color = "black")
-    plt.plot(lcl_wrewma, color = "black")
+    # plt.plot(Y_ewma,color = "black")
+    # plt.plot(ucl_wrewma, color = "black")
+    # plt.plot(lcl_wrewma, color = "black")
     # plt.show()
 
 
@@ -165,33 +172,33 @@ def wavelet(Y, J):
     for i in range(N):
         lcl_base[i] = LCL(i+1, mu, Ll_base, sd, lam)
 
-    plt.plot(Y_base,color = "black")
-    plt.plot(ucl_base,color = "black")
-    plt.plot(lcl_base,color = "black")
+    # plt.plot(Y_base,color = "black")
+    # plt.plot(ucl_base,color = "black")
+    # plt.plot(lcl_base,color = "black")
     # plt.show()
 
 
     #################### PLOT 3 METHODS
 
-    plt.subplots(nrows=J+4, ncols=1, sharex=True, sharey=False, figsize=(15, 2.3*(J+4)))
-    plt.subplot((J+4), 1, 1)
-    plt.ylabel("Original")
-    plt.plot(Y, color = "black")
+    # plt.subplots(nrows=J+4, ncols=1, sharex=True, sharey=False, figsize=(15, 2.3*(J+4)))
+    # plt.subplot((J+4), 1, 1)
+    # plt.ylabel("Original")
+    # plt.plot(Y, color = "black")
 
     ## BASE
 
-    plt.subplot((J+4), 1, 2)
-    plt.ylabel("EWMA")
-    plt.plot(Y_base, color = "black")
-    plt.plot(ucl_base,color = "black")
-    plt.plot(lcl_base,color = "black")
+    # plt.subplot((J+4), 1, 2)
+    # plt.ylabel("EWMA")
+    # plt.plot(Y_base, color = "black")
+    # plt.plot(ucl_base,color = "black")
+    # plt.plot(lcl_base,color = "black")
 
     ## WREWMA
-    plt.subplot((J+4), 1, 3)
-    plt.ylabel("WREWMA")
-    plt.plot(Y_ewma, color = "black")
-    plt.plot(ucl_wrewma,color = "black")
-    plt.plot(lcl_wrewma,color = "black")
+    # plt.subplot((J+4), 1, 3)
+    # plt.ylabel("WREWMA")
+    # plt.plot(Y_ewma, color = "black")
+    # plt.plot(ucl_wrewma,color = "black")
+    # plt.plot(lcl_wrewma,color = "black")
 
     lam = 0.6
     Lu = [3.6,20,25,30,40,40,40]
@@ -212,17 +219,21 @@ def wavelet(Y, J):
         coef_ewma = np.zeros(n).tolist()
         for i in range(n, N):
             coef_ewma.append(lam * coef_denoise[j][i-n] + (1 - lam) * coef_ewma[i-1])
-        plt.subplot((J+4), 1, j+4)
-        if j == 0:
-            plt.ylabel("D")
-        else:
-            plt.ylabel("A" + str(J-j+1))
-        plt.plot(coef_ewma, color = "black")
-        plt.plot(ucl,color = "black")
-        plt.plot(lcl,color = "black")
+        # plt.subplot((J+4), 1, j+4)
+        # if j == 0:
+        #     plt.ylabel("D")
+        # else:
+        #     plt.ylabel("A" + str(J-j+1))
+        # plt.plot(coef_ewma, color = "black")
+        # plt.plot(ucl,color = "black")
+        # plt.plot(lcl,color = "black")
+
+        if j == J:
+            result = stats(Y, ucl, lcl)
+
     # plt.show()
 
-    return np.array(coef_denoise).T
+    return np.array(coef_denoise).T, result
 
     """
 
