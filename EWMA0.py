@@ -7,7 +7,7 @@ Created on Wed Sep 12 15:36:38 2018
 import numpy as np
 import matplotlib.pyplot as plt
 
-L = 3
+L = 2
 class EWMA():
     def __init__(self, lamda = 0.1, mu = 0, sigma = 1, level = 1, ucl=0.15,lcl=-0.15):
         self.lamda = lamda #参数
