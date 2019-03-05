@@ -36,4 +36,3 @@ class EWMA():
         plt.xlabel('time/s')
         plt.ylabel('EWMA')
         plt.show()
-        

@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from statsmodels.tsa.arima_process import arma_generate_sample
 import statsmodels.api as sm
 import statsmodels.tsa as tsa
+from utils.utils import stats
 
 #################### Set parameters
 
@@ -48,12 +49,6 @@ def UCL(i, mu0, L, sigma, lam):
 def LCL(i, mu0, L, sigma, lam):
     return mu0 - L * sigma *np.sqrt(lam/(2 - lam) * (1 - (1 - lam)**(2*i)))
 
-def stats(Y, ub, lb):
-    result = np.ones(N)
-    for i in range(N):
-        if Y[i] < ub[i] and Y[i] > lb[i]:
-            result[i] = 0
-    return result
 
 def wavelet(Y, J):
     #################### Generate data
@@ -229,7 +224,7 @@ def wavelet(Y, J):
         # plt.plot(lcl,color = "black")
 
         if j == J:
-            result = stats(Y, ucl, lcl)
+            result = stats(Y, ucl, lcl, N)
 
     # plt.show()
 

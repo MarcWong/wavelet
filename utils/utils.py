@@ -1,3 +1,5 @@
+import numpy as np
+
 def f1calc(gt, pred):
     ra = gt.shape[0]
     TP = 0
@@ -15,3 +17,10 @@ def f1calc(gt, pred):
         else:
             FN += 1
     return TP/ (TP+FN), TP/ (TP+FP), 2*TP/(2*TP + FP + FN)
+
+def stats(Y, ub, lb, N):
+    result = np.ones(N)
+    for i in range(N):
+        if Y[i] < ub[i] and Y[i] > lb[i]:
+            result[i] = 0
+    return result

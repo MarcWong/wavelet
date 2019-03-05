@@ -4,6 +4,7 @@ import numpy as np
 import pywt
 from EWMA0 import EWMA
 import matplotlib.pyplot as plt
+from utils.utils import stats
 
 # 绘图的点大小
 s = 5
@@ -88,4 +89,6 @@ def wavelet(data, j):
         output_arr = np.concatenate([output_arr,tmp], axis=0)
     output_arr = np.reshape(output_arr, (ll, 3))
     print(output_arr.shape)
+    print(ctrlcD2.ucl)
+    print(ctrlcD2.lcl)
     return output_arr
