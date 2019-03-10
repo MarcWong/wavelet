@@ -8,6 +8,7 @@ print(__doc__)
 from data_generation import generateData
 from svm.svm import doSvm
 from pca.plot_pca_wavelet import plot_pca
+import time
 
 ####### 一些参数 #######
 TRAIN = 5000
@@ -30,5 +31,9 @@ YMAX = 1.0
 LEVEL = 6
 
 generateData(TRAIN, TEST, ABNORMAL_RATE, MIU, SIGMA, MIU_ABNORMAL, SIGMA_ABNORMAL, LEVEL)
+time_start = time.time()
 doSvm(ABNORMAL_RATE, XMIN, YMIN, XMAX, YMAX)
+time_end = time.time()
+print("svm用时:",time_end - time_start,"秒")
+
 plot_pca()

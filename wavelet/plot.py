@@ -10,9 +10,6 @@ from utils.utils import stats
 
 N = 5000
 tau = 3000
-n = 128
-J = int(np.log2(n)) - 1
-dif = int(np.log2(n)) - J
 mu = 0.0
 sd = 1
 wavelet_method = 'haar'
@@ -51,6 +48,8 @@ def LCL(i, mu0, L, sigma, lam):
 
 
 def wavelet(Y, J):
+    n = 2**(J+1)
+    dif = int(np.log2(n)) - J
     #################### Generate data
 
     ## SHIFT
