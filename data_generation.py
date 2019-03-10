@@ -10,6 +10,7 @@ import numpy as np
 # from wavelet.wavelet import wavelet # 老方法
 from wavelet.plot import wavelet # 新方法
 from utils.utils import f1calc
+import time
 
 def generate_X(data_size, abnormal_rate, miu, sigma, miu_ab, sigma_ab):
     abnormal_size = int(data_size * abnormal_rate)
@@ -35,20 +36,27 @@ def generateData(TRAIN, TEST, ABNORMAL_RATE, MIU, SIGMA, MIU_ABNORMAL, SIGMA_ABN
     X_test, X_test_normal, X_test_abnormal = generate_X(TEST, ABNORMAL_RATE, MIU, SIGMA, MIU_ABNORMAL, SIGMA_ABNORMAL)
 
     print("正在对训练数据做小波变换")
+    time_start = time.time()
 
     # 当使用老方法时，交换这里的注释
     X_train_output, y_train_baseline = wavelet(X_train, LEVEL)
     # X_train_output = wavelet(X_train, LEVEL)
 
+    time_end = time.time()
+    print("训练集EWMA用时:",time_end - time_start,"秒")
+
     Y_train = generate_Y(X_train_output.shape[0], ABNORMAL_RATE)
     print("正在对测试数据做小波变换")
+    time_start = time.time()
 
     # 当使用老方法时，交换这里的注释
     X_test_output, y_test_baseline = wavelet(X_test, LEVEL)
     # X_test_output = wavelet(X_test, LEVEL)
 
-    Y_test = generate_Y(X_test_output.shape[0], ABNORMAL_RATE)
+    time_end = time.time()
+    print("测试集EWMA用时:",time_end - time_start,"秒")
 
+    Y_test = generate_Y(X_test_output.shape[0], ABNORMAL_RATE)
     # 当使用老方法时，注释掉这四行
     print("trainset EWMA baseline", y_train_baseline.shape)
     print("testset EWMA baseline", y_test_baseline.shape)
