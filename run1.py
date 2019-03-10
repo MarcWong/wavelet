@@ -8,7 +8,8 @@ Created on Mon Mar  4 12:10:32 2019
 
 print(__doc__)
 from data_generation1 import generateData
-from svm1 import doSvm
+from svm.svm1 import doSvm
+from pca.plot_pca_wavelet import plot_pca
 
 ####### 一些参数 #######
 TRAIN = 5000
@@ -32,3 +33,4 @@ LEVEL = 2
 
 generateData(TRAIN, TEST, ABNORMAL_RATE, MIU, SIGMA, MIU_ABNORMAL, SIGMA_ABNORMAL)
 doSvm(ABNORMAL_RATE, XMIN, YMIN, XMAX, YMAX)
+plot_pca()

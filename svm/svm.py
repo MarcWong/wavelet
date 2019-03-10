@@ -55,43 +55,4 @@ def doSvm(ABNORMAL_RATE, XMIN, YMIN, XMAX, YMAX):
 
     # 统计精度，召回率
     recall, precision, F1 = f1calc(Y_test, y_pred_test)
-
-
     print ("test set recall: ", recall,"; precision:", precision, "F1-score:", F1)
-    ####### 画图 #######
-    # 网格的粒度是第三个参数
-    # xx, yy = np.meshgrid(np.linspace(XMIN, XMAX, 1000), np.linspace(YMIN, YMAX, 1000))
-
-    # plot the line, the points, and the nearest vectors to the plane
-    # Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
-    # Z = Z.reshape(xx.shape)
-    # plt.figure("svm")
-    # plt.title("2-D SVM")
-    # plt.contourf(xx, yy, Z, levels=np.linspace(Z.min(), 0, 7), cmap=plt.cm.PuBu)
-    # a = plt.contour(xx, yy, Z, levels=[0], linewidths=2, colors='darkred')
-    # plt.contourf(xx, yy, Z, levels=[0, Z.max()], colors='palevioletred')
-
-    # b1 = plt.scatter(X_train_normal[:, 0], X_train_normal[:, 1], c='white', s=s, edgecolors='k')
-    # b2 = plt.scatter(X_train_abnormal[:, 0], X_train_abnormal[:, 1], s=s)
-    # b3 = plt.scatter(X_test_normal[:, 0], X_test_normal[:, 1], s=s)
-    # b4 = plt.scatter(X_test_abnormal[:, 0], X_test_abnormal[:, 1], s=s)
-
-    # plt.axis('tight')
-
-    # X, Y的显示上下界在这里修改
-    # plt.xlim((XMIN, XMAX))
-    # plt.ylim((YMIN, YMAX))
-    # plt.legend([a.collections[0], b1, b2, b3, b4],
-    #         ["learned frontier", "normal train", "abnormal train",
-    #             "normal test", "abnormal test",],
-    #         loc="upper left",
-    #         prop=matplotlib.font_manager.FontProperties(size=8))
-    # plt.xlabel(
-    #     "error train: %d/%d ; errors test: %d/%d ; "
-    #     % (n_error_train, TRAIN, n_error_test, TEST))
-
-    # plt.text(
-    #     -0.1, -0.8,
-    #     "test set correctness: %.2f"
-    #     % (cntRegular / TEST))
-    # plt.show()

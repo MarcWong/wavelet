@@ -7,7 +7,7 @@ pipeline1-data_generation
 """
 
 import numpy as np
-from wavelet import wavelet
+from wavelet.wavelet import wavelet
 
 def generate_X(data_size, abnormal_rate, miu, sigma, miu_ab, sigma_ab):
     abnormal_size = int(data_size * abnormal_rate)

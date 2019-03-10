@@ -20,7 +20,7 @@ def f1calc(gt, pred):
 
 def stats(Y, ub, lb, N):
     result = np.ones(N)
-    for i in range(N):
+    for i in range(0, N):
         if Y[i] < ub[i] and Y[i] > lb[i]:
             result[i] = 0
     return result

@@ -6,7 +6,8 @@
 """
 print(__doc__)
 from data_generation import generateData
-from svm import doSvm
+from svm.svm import doSvm
+from pca.plot_pca_wavelet import plot_pca
 
 ####### 一些参数 #######
 TRAIN = 5000
@@ -26,7 +27,8 @@ XMAX = 1.0
 YMAX = 1.0
 
 # 小波变换的级数
-LEVEL = 2
+LEVEL = 6
 
 generateData(TRAIN, TEST, ABNORMAL_RATE, MIU, SIGMA, MIU_ABNORMAL, SIGMA_ABNORMAL, LEVEL)
 doSvm(ABNORMAL_RATE, XMIN, YMIN, XMAX, YMAX)
+plot_pca()

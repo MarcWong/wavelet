@@ -7,8 +7,8 @@ pipeline1-data_generation
 """
 
 import numpy as np
-# from wavelet import wavelet # 老方法
-from plot import wavelet # 新方法
+# from wavelet.wavelet import wavelet # 老方法
+from wavelet.plot import wavelet # 新方法
 from utils.utils import f1calc
 
 def generate_X(data_size, abnormal_rate, miu, sigma, miu_ab, sigma_ab):
@@ -23,8 +23,8 @@ def generate_Y(data_size, abnormal_rate):
     abnormal_size = int(data_size * abnormal_rate)
     normal_size = int(data_size - abnormal_size)
 
-    normal_set = np.zeros(normal_size)
-    abnormal_set = np.ones(abnormal_size)
+    normal_set = np.zeros(normal_size, dtype=int)
+    abnormal_set = np.ones(abnormal_size, dtype=int)
     return np.concatenate((normal_set, abnormal_set),axis=0)
 
 def generateData(TRAIN, TEST, ABNORMAL_RATE, MIU, SIGMA, MIU_ABNORMAL, SIGMA_ABNORMAL, LEVEL):
