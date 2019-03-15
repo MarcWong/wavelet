@@ -16,7 +16,7 @@ def f1calc(gt, pred):
             FP += 1
         else:
             FN += 1
-    return TP/ (TP+FN), TP/ (TP+FP), 2*TP/(2*TP + FP + FN)
+    return TP/ (TP+FN), TP/ (TP+FP), 2*TP/(2*TP + FP + FN), (TP + TN) / (TP + TN + FP + FN)
 
 def stats(Y, ub, lb, N):
     result = np.ones(N)

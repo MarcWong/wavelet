@@ -54,5 +54,5 @@ def doSvm(ABNORMAL_RATE, XMIN, YMIN, XMAX, YMAX):
     n_error_test = y_pred_test[y_pred_test == 1].size
 
     # 统计精度，召回率
-    recall, precision, F1 = f1calc(Y_test, y_pred_test)
-    print ("test set recall: ", recall,"; precision:", precision, "F1-score:", F1)
+    recall, precision, F1, acc = f1calc(Y_test, y_pred_test)
+    print ("test set recall: ", recall,"; precision:", precision, "F1-score:", F1, "acc", acc)
