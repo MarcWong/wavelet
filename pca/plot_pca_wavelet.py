@@ -16,19 +16,10 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn import decomposition
 from sklearn import datasets
 
-def plot_pca():
+def plot_pca(X, y):
     np.random.seed(5)
 
     centers = [[1, 1], [-1, -1], [1, -1]]
-
-    # iris = datasets.load_iris()
-    # X = iris.data
-    # y = iris.target
-    X = np.load('../data/simulate/X_train.npy')
-    y = np.load('../data/simulate/Y_train.npy')
-    # X_test = np.load('../data/simulate/X_test.npy')
-    # Y_test = np.load('../data/simulate/Y_test.npy')
-
 
     fig = plt.figure(1, figsize=(4, 3))
     plt.clf()

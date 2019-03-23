@@ -12,57 +12,60 @@ import matplotlib.font_manager
 from sklearn import svm
 
 ####### 一些参数 #######
-raw_data = np.load('../data/2544_20160907-13-zs/10.npy')[:, np.array([0,2])] 
+name= ['223-94.npy',
+    '223-95.npy',
+    '223-96.npy',
+    '223-97.npy',
+    '223-100-问题.npy',
+    '223-101.npy',
+    '223-105-问题.npy',
+    '223-106.npy',
+    '223-107-小问题.npy',
+    '223-108.npy',
+    '223-109-断.npy',
+    '223-111-非规律.npy',
+    '223-112-小问题.npy',
+    '223-114-非规律.npy',
+    '223-115-非规律.npy',
+    '223-117.npy',
+    '223-118.npy',
+    '223-119-问题.npy',
+    '223-120.npy',
+    '223-121-非规律.npy',
+]
 
-####### 训练集 #######
-X_train = raw_data[: int(raw_data.shape[0] / 2), :]
-train_size = X_train.shape[0]
-print(X_train.shape)
+for i in range(0, len(name)):
+
+    X_train = np.load('../../silicon_data/' + name[i])
+
+    # raw_data = np.load('../../data/2544_20160907-13-zs/10.npy')[:, np.array([0,2])]
 
 
-####### 测试集 #######
-X_test = raw_data[int(raw_data.shape[0] / 2):, :] 
-test_size = X_test.shape[0]
-print(X_test.shape)
+    ####### 训练集 #######
+    # X_train = raw_data[: int(raw_data.shape[0] / 2), :]
+    # train_size = X_train.shape[0]
+    # print(X_train.shape)
 
 
-####### svdd #######
-# fit the model
+    ####### 测试集 #######
+    # X_test = raw_data[int(raw_data.shape[0] / 2):, :] 
+    # test_size = X_test.shape[0]
+    # print(X_test.shape)
 
-clf = svm.OneClassSVM(nu=0.001, kernel="rbf", gamma=0.001)
-clf.fit(X_train)
-y_pred_train = clf.predict(X_train)
-y_pred_test = clf.predict(X_test)
-n_abnormal_train = y_pred_train[y_pred_train == -1].size
-n_abnormal_test = y_pred_test[y_pred_test == -1].size
 
-print ("abnormal train: %d/%d ; abnormal test: %d/%d ; "
-    % (n_abnormal_train, train_size, n_abnormal_test, test_size))
+    ####### svdd #######
+    # fit the model
 
-####### 画图 #######
-# 网格的粒度是第三个参数
-xx, yy = np.meshgrid(np.linspace(np.min(X_test), np.max(X_test), 1000), np.linspace(np.min(X_test), np.max(X_test), 1000))
-Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
-Z = Z.reshape(xx.shape)
-a = plt.contour(xx, yy, Z, levels=[0], linewidths=2, colors='darkred')
+    clf = svm.OneClassSVM(nu=0.001, kernel="rbf", gamma=0.001)
+    clf.fit(X_train)
+    y_pred_train = clf.predict(X_train)
+    # y_pred_test = clf.predict(X_test)
+    n_abnormal_train = y_pred_train[y_pred_train == -1].size
+    # n_abnormal_test = y_pred_test[y_pred_test == -1].size
 
-plt.title("Novelty Detection")
+    # print ("abnormal train: %d/%d ; abnormal test: %d/%d ; "
+    #     % (n_abnormal_train, train_size, n_abnormal_test, test_size))
 
-s = 2
-b1 = plt.scatter(X_train[:, 0], X_train[:, 1], c='b', s=s)
-b2 = plt.scatter(X_test[:, 0], X_test[:, 1], c='m', s=s)
-# c = plt.scatter(X_outliers[:, 0], X_outliers[:, 1], c='gold', s=s,
-#                  edgecolors='k')
-plt.axis('tight')
-# plt.xlim((-100, 100))
-# plt.ylim((-100, 100))
-plt.legend([a.collections[0], b1, b2],
-            ["learned frontier", "training observations",
-             "new regular observations"],
-            loc="upper left",
-            prop=matplotlib.font_manager.FontProperties(size=11))
-# plt.xlabel(
-#      "error train: %d/%d ; errors test regular: %d/%d ; "
-#      "errors test abnormal: %d/%d"
-#      % (n_error_train, train_size, n_error_test, test_size, n_error_outliers, test_size))
-plt.show()
+
+    print("保存文件: ../../silicon_data_y/" + name[i])
+    np.save("../../silicon_data_y/" + name[i], y_pred_train )

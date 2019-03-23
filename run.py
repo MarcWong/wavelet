@@ -8,6 +8,7 @@ print(__doc__)
 from data_generation import generateData
 from svm.svm import doSvm
 from pca.plot_pca_wavelet import plot_pca
+import numpy as np
 import time
 
 ####### 一些参数 #######
@@ -36,4 +37,13 @@ doSvm(ABNORMAL_RATE, XMIN, YMIN, XMAX, YMAX)
 time_end = time.time()
 print("svm用时:",time_end - time_start,"秒")
 
-plot_pca()
+
+# iris = datasets.load_iris()
+# X = iris.data
+# y = iris.target
+X = np.load('../data/simulate/X_train.npy')
+y = np.load('../data/simulate/Y_train.npy')
+# X_test = np.load('../data/simulate/X_test.npy')
+# Y_test = np.load('../data/simulate/Y_test.npy')
+
+plot_pca(X, y)

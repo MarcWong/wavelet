@@ -8,7 +8,7 @@ from utils.utils import stats
 
 #################### Set parameters
 
-N = 5000
+# N = 5000
 tau = 3000
 mu = 0.0
 sd = 1
@@ -48,6 +48,7 @@ def LCL(i, mu0, L, sigma, lam):
 
 
 def wavelet(Y, J):
+    N = Y.size;
     n = 2**(J+1)
     dif = int(np.log2(n)) - J
     #################### Generate data
