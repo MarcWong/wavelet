@@ -33,7 +33,7 @@ LEVEL = 6
 
 generateData(TRAIN, TEST, ABNORMAL_RATE, MIU, SIGMA, MIU_ABNORMAL, SIGMA_ABNORMAL, LEVEL)
 time_start = time.time()
-doSvm(ABNORMAL_RATE, XMIN, YMIN, XMAX, YMAX)
+doSvm('../data/simulate/X_train.npy', '../data/simulate/X_test.npy', '../data/simulate/Y_train.npy', '../data/simulate/Y_test.npy')
 time_end = time.time()
 print("svm用时:",time_end - time_start,"秒")
 
