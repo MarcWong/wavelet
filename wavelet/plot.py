@@ -214,19 +214,19 @@ def wavelet(Y, J):
         coef_ewma = np.zeros(n).tolist()
         for i in range(n, N):
             coef_ewma.append(lam * coef_denoise[j][i-n] + (1 - lam) * coef_ewma[i-1])
-        # plt.subplot((J+4), 1, j+4)
-        # if j == 0:
-        #     plt.ylabel("D")
-        # else:
-        #     plt.ylabel("A" + str(J-j+1))
-        # plt.plot(coef_ewma, color = "black")
+        plt.subplot((J+4), 1, j+4)
+        if j == 0:
+            plt.ylabel("D")
+        else:
+            plt.ylabel("A" + str(J-j+1))
+        plt.plot(coef_ewma, color = "black")
         # plt.plot(ucl,color = "black")
         # plt.plot(lcl,color = "black")
 
         if j == J:
             result = stats(Y, ucl, lcl, N)
 
-    # plt.show()
+    plt.show()
 
     return np.array(coef_denoise).T, result
 
