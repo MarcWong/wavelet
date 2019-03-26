@@ -20,7 +20,7 @@ ABNORMAL_RATE = 0.4
 MIU = 0
 SIGMA = 1
 # 异常数据的均值、方差
-MIU_ABNORMAL = 0.5
+MIU_ABNORMAL = 0.9
 SIGMA_ABNORMAL = 1
 # 画图时的上下界
 XMIN = -1.0
@@ -29,7 +29,7 @@ XMAX = 1.0
 YMAX = 1.0
 
 # 小波变换的级数
-LEVEL = 7
+LEVEL = 6
 
 generateData(TRAIN, TEST, ABNORMAL_RATE, MIU, SIGMA, MIU_ABNORMAL, SIGMA_ABNORMAL, LEVEL)
 time_start = time.time()
