@@ -15,10 +15,10 @@ import numpy as np
 i = 0
 LEVEL = 6
 do_wavelet = False
-do_calibration = False
-do_split = False
+do_calibration = True
+do_split = True
 do_svm = True
-do_pca = False
+do_pca = True
 
 filename = '2437_20161108-07-zs/1'
 
@@ -36,6 +36,7 @@ if (do_calibration):
     calibrate(wavelet_path, ground_truth_path, filename)
 
 if (do_split):
+    # 将数据按奇偶分别分为训练集与测试集
     split(wavelet_path, ground_truth_path, filename)
 
 if (do_svm):

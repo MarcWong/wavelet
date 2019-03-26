@@ -2,8 +2,8 @@ import numpy as np
 
 def calibrate(input_path, output_path, filename):
     X = np.load(input_path + filename + '.npy')
-    print(X.shape)
-    y_gt = np.zeros(X.shape[0]);
+
+    y_gt = np.zeros(X.shape[0], dtype=int);
     for i in range(3250,8400):
         y_gt[i] = 1;
 

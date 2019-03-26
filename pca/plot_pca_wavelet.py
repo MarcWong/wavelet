@@ -29,6 +29,7 @@ def plot_pca(X, y):
     pca = decomposition.PCA(n_components=3)
     pca.fit(X)
     X = pca.transform(X)
+#     print(X.shape)
 
     for name, label in [('Normal', 0), ('Abnormal', 1)]:
         ax.text3D(X[y == label, 0].mean(),
