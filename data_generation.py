@@ -7,8 +7,8 @@ pipeline1-data_generation
 """
 
 import numpy as np
-# from wavelet.wavelet import wavelet # 老方法
-from wavelet.plot import wavelet # 新方法
+from wavelet.wavelet import wavelet # 老方法
+# from wavelet.plot import wavelet # 新方法
 from utils.utils import f1calc
 import time
 
@@ -38,9 +38,8 @@ def generateData(TRAIN, TEST, ABNORMAL_RATE, MIU, SIGMA, MIU_ABNORMAL, SIGMA_ABN
     print("正在对训练数据做小波变换")
     time_start = time.time()
 
-    # 当使用老方法时，交换这里的注释
+    # train集进行小波变换
     X_train_output, y_train_baseline = wavelet(X_train, LEVEL)
-    # X_train_output = wavelet(X_train, LEVEL)
 
     time_end = time.time()
     print("训练集EWMA用时:",time_end - time_start,"秒")
@@ -49,15 +48,14 @@ def generateData(TRAIN, TEST, ABNORMAL_RATE, MIU, SIGMA, MIU_ABNORMAL, SIGMA_ABN
     print("正在对测试数据做小波变换")
     time_start = time.time()
 
-    # 当使用老方法时，交换这里的注释
+    # test集进行小波变换
     X_test_output, y_test_baseline = wavelet(X_test, LEVEL)
-    # X_test_output = wavelet(X_test, LEVEL)
 
     time_end = time.time()
     print("测试集EWMA用时:",time_end - time_start,"秒")
 
     Y_test = generate_Y(X_test_output.shape[0], ABNORMAL_RATE)
-    # 当使用老方法时，注释掉这四行
+
     print("trainset EWMA baseline", y_train_baseline.shape)
     print("testset EWMA baseline", y_test_baseline.shape)
     print("小波变换后训练集维度：", X_train_output.shape, "，训练集异常样本点：", Y_train[Y_train == 1].size, "，占比：", round(Y_train[Y_train == 1].size / X_train_output.shape[0], 2))

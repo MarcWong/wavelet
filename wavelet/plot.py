@@ -224,7 +224,7 @@ def wavelet(Y, J):
         plt.plot(lcl,color = "coral")
 
         if j == J:
-            result = stats(Y, ucl, lcl, N)
+            result = stats(Y, ucl, lcl)
 
     plt.show()
 
