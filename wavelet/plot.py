@@ -143,10 +143,10 @@ def wavelet(Y, J):
     for i in range(N):
         lcl_wrewma[i] = LCL(i+1, mu, Ll_wrewma, sd_wrewma, lam)
 
-    # plt.plot(Y_ewma,color = "black")
-    # plt.plot(ucl_wrewma, color = "black")
-    # plt.plot(lcl_wrewma, color = "black")
-    # plt.show()
+    plt.plot(Y_ewma,color = "black")
+    plt.plot(ucl_wrewma, color = "black")
+    plt.plot(lcl_wrewma, color = "black")
+    plt.show()
 
 
 
@@ -220,8 +220,8 @@ def wavelet(Y, J):
         else:
             plt.ylabel("A" + str(J-j+1))
         plt.plot(coef_ewma, color = "black")
-        # plt.plot(ucl,color = "black")
-        # plt.plot(lcl,color = "black")
+        plt.plot(ucl,color = "blueviolet")
+        plt.plot(lcl,color = "coral")
 
         if j == J:
             result = stats(Y, ucl, lcl, N)

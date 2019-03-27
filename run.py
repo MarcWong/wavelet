@@ -20,7 +20,7 @@ ABNORMAL_RATE = 0.4
 MIU = 0
 SIGMA = 1
 # 异常数据的均值、方差
-MIU_ABNORMAL = 0.9
+MIU_ABNORMAL = 0.5
 SIGMA_ABNORMAL = 1
 # 画图时的上下界
 XMIN = -1.0
