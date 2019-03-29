@@ -149,7 +149,6 @@ def wavelet(Y, J):
     plt.show()
 
 
-
     ## BASE
     lam = 0.1
     Lu_base = 3.0
@@ -167,33 +166,33 @@ def wavelet(Y, J):
     for i in range(N):
         lcl_base[i] = LCL(i+1, mu, Ll_base, sd, lam)
 
-    # plt.plot(Y_base,color = "black")
-    # plt.plot(ucl_base,color = "black")
-    # plt.plot(lcl_base,color = "black")
-    # plt.show()
+    plt.plot(Y_base,color = "black")
+    plt.plot(ucl_base,color = "black")
+    plt.plot(lcl_base,color = "black")
+    plt.show()
 
 
     #################### PLOT 3 METHODS
 
-    # plt.subplots(nrows=J+4, ncols=1, sharex=True, sharey=False, figsize=(15, 2.3*(J+4)))
-    # plt.subplot((J+4), 1, 1)
-    # plt.ylabel("Original")
-    # plt.plot(Y, color = "black")
+    plt.subplots(nrows=J+4, ncols=1, sharex=True, sharey=False, figsize=(15, 2.3*(J+4)))
+    plt.subplot((J+4), 1, 1)
+    plt.ylabel("Original")
+    plt.plot(Y, color = "black")
 
     ## BASE
 
-    # plt.subplot((J+4), 1, 2)
-    # plt.ylabel("EWMA")
-    # plt.plot(Y_base, color = "black")
-    # plt.plot(ucl_base,color = "black")
-    # plt.plot(lcl_base,color = "black")
+    plt.subplot((J+4), 1, 2)
+    plt.ylabel("EWMA")
+    plt.plot(Y_base, color = "black")
+    plt.plot(ucl_base,color = "black")
+    plt.plot(lcl_base,color = "black")
 
     ## WREWMA
-    # plt.subplot((J+4), 1, 3)
-    # plt.ylabel("WREWMA")
-    # plt.plot(Y_ewma, color = "black")
-    # plt.plot(ucl_wrewma,color = "black")
-    # plt.plot(lcl_wrewma,color = "black")
+    plt.subplot((J+4), 1, 3)
+    plt.ylabel("WREWMA")
+    plt.plot(Y_ewma, color = "black")
+    plt.plot(ucl_wrewma,color = "black")
+    plt.plot(lcl_wrewma,color = "black")
 
     lam = 0.6
     Lu = [3.6,20,25,30,40,40,40,40]
