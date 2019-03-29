@@ -11,10 +11,11 @@ from svm.svm import doSvm
 from utils.calibrate import calibrate
 from utils.split import split
 import numpy as np
+import time
 
 i = 0
 LEVEL = 6
-do_wavelet = False
+do_wavelet = True
 do_calibration = True
 do_split = True
 do_svm = True
@@ -29,7 +30,10 @@ ground_truth_path = '../data_gt/'
 
 if (do_wavelet):
     # 执行小波变换
+    time_start = time.time()
     process_wavelet(original_path, wavelet_path, filename, LEVEL)
+    time_end = time.time()
+    print("小波变换用时:",time_end - time_start,"秒")
 
 if (do_calibration):
     # 数据标注
@@ -41,7 +45,10 @@ if (do_split):
 
 if (do_svm):
     # 执行SVM
+    time_start = time.time()
     doSvm(wavelet_path + filename + '_train.npy', wavelet_path + filename + '_test.npy', ground_truth_path + filename + '_train.npy', ground_truth_path + filename + '_test.npy')
+    time_end = time.time()
+    print("svm用时:",time_end - time_start,"秒")
 
 if (do_pca):
     # 执行pca，画图
