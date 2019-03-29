@@ -22,6 +22,10 @@ parabolic = shift / para_range**2
 spike = shift * 8
 spike_range = 5
 
+font_class = {'weight' : 'normal',
+'size'   : 12,
+}
+
 #################### VisuShrink
 
 def hard(x, t):
@@ -170,26 +174,27 @@ def wavelet(Y, J):
     plt.plot(ucl_base,color = "black")
     plt.plot(lcl_base,color = "black")
     plt.show()
+    result = stats(Y_base, ucl_base, lcl_base)
 
 
     #################### PLOT 3 METHODS
 
     plt.subplots(nrows=J+4, ncols=1, sharex=True, sharey=False, figsize=(15, 2.3*(J+4)))
     plt.subplot((J+4), 1, 1)
-    plt.ylabel("Original")
+    plt.ylabel("Original", font_class)
     plt.plot(Y, color = "black")
 
     ## BASE
 
     plt.subplot((J+4), 1, 2)
-    plt.ylabel("EWMA")
+    plt.ylabel("EWMA", font_class)
     plt.plot(Y_base, color = "black")
     plt.plot(ucl_base,color = "black")
     plt.plot(lcl_base,color = "black")
 
     ## WREWMA
     plt.subplot((J+4), 1, 3)
-    plt.ylabel("WREWMA")
+    plt.ylabel("WREWMA", font_class)
     plt.plot(Y_ewma, color = "black")
     plt.plot(ucl_wrewma,color = "black")
     plt.plot(lcl_wrewma,color = "black")
@@ -215,15 +220,13 @@ def wavelet(Y, J):
             coef_ewma.append(lam * coef_denoise[j][i-n] + (1 - lam) * coef_ewma[i-1])
         plt.subplot((J+4), 1, j+4)
         if j == 0:
-            plt.ylabel("D")
+            plt.ylabel("D", font_class)
         else:
-            plt.ylabel("A" + str(J-j+1))
+            plt.ylabel("A" + str(J-j+1), font_class)
         plt.plot(coef_ewma, color = "black")
-        plt.plot(ucl,color = "blueviolet")
+        plt.plot(ucl,color = "steelblue")
         plt.plot(lcl,color = "coral")
 
-        if j == J:
-            result = stats(Y, ucl, lcl)
 
     plt.show()
 

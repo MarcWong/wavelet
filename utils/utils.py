@@ -27,7 +27,8 @@ def f1calc(gt, pred):
     return TP/ (TP+FN), TP/ (TP+FP), 2*TP/(2*TP + FP + FN), (TP + TN) / (TP + TN + FP + FN)
 
 def stats(Y, ub, lb):
-    N = Y.shape[0];
+    # N = Y.shape[0];
+    N = len(Y)
     result = np.ones(N , dtype=int)
     for i in range(0, N):
         if Y[i] < ub[i] and Y[i] > lb[i]:
