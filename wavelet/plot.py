@@ -174,7 +174,6 @@ def wavelet(Y, J):
     plt.plot(ucl_base,color = "black")
     plt.plot(lcl_base,color = "black")
     plt.show()
-    result = stats(Y_base, ucl_base, lcl_base)
 
 
     #################### PLOT 3 METHODS
@@ -221,6 +220,7 @@ def wavelet(Y, J):
         plt.subplot((J+4), 1, j+4)
         if j == 0:
             plt.ylabel("D", font_class)
+            result = stats(coef_ewma, ucl, lcl)
         else:
             plt.ylabel("A" + str(J-j+1), font_class)
         plt.plot(coef_ewma, color = "black")
