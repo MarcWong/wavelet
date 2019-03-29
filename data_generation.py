@@ -64,9 +64,9 @@ def generateData(TRAIN, TEST, ABNORMAL_RATE, MIU, SIGMA, MIU_ABNORMAL, SIGMA_ABN
 
     # 统计精度，召回率
     recall, precision, F1, acc = f1calc(Y_train, y_train_baseline)
-    print ("baseline train set recall: ", recall,"; precision:", precision, "F1-score:", F1, "acc:", acc)
+    print ("EWMA train set recall: ", recall,"; precision:", precision, "F1-score:", F1, "acc:", acc)
     recallTe, precisionTe, F1Te, accTe = f1calc(Y_test, y_test_baseline)
-    print ("baseline test set recall: ", recallTe,"; precision:", precisionTe, "F1-score:", F1Te, "acc:", accTe)
+    print ("EWMA test set recall: ", recallTe,"; precision:", precisionTe, "F1-score:", F1Te, "acc:", accTe)
 
     print("保存文件: ../data/simulate/X_train.npy")
     np.save('../data/simulate/X_train.npy', X_train_output )

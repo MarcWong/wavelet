@@ -22,6 +22,8 @@ def f1calc(gt, pred):
     print ('TN:', TN)
     print ('FP:', FP)
     print ('FN:', FN)
+    if (TP+FP == 0):
+        return TP/ (TP+FN), 0, 2*TP/(2*TP + FP + FN), (TP + TN) / (TP + TN + FP + FN)
     return TP/ (TP+FN), TP/ (TP+FP), 2*TP/(2*TP + FP + FN), (TP + TN) / (TP + TN + FP + FN)
 
 def stats(Y, ub, lb):
