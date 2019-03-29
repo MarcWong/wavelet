@@ -52,6 +52,41 @@ def stats(Y, ub, lb):
             result[i] = 0
     return result
 
+def calibrate(X):
+    y_gt = np.zeros(len(X), dtype=int);
+    for i in range(11400, 11500, 2):
+        y_gt[i] = 1;
+    for i in range(21400, 21500, 2):
+        y_gt[i] = 1;
+    return y_gt
+
+
+def f1calc(gt, pred):
+    print(gt.shape)
+    print(pred.shape)
+    ra = gt.shape[0]
+    TP = 0
+    TN = 0
+    FP = 0
+    FN = 0
+    for i in range(0, ra):
+        # 判断预测值与真值是否一致
+        if (gt[i] == pred[i] == 0):
+            TP += 1
+        elif (gt[i] == pred[i] == 1):
+            TN += 1
+        elif (gt[i] != pred[i] and gt[i] == 1):
+            FP += 1
+        else:
+            FN += 1
+    print ('TP:', TP)
+    print ('TN:', TN)
+    print ('FP:', FP)
+    print ('FN:', FN)
+    if (TP+FP == 0):
+        return TP/ (TP+FN), 0, 2*TP/(2*TP + FP + FN), (TP + TN) / (TP + TN + FP + FN)
+    return TP/ (TP+FN), TP/ (TP+FP), 2*TP/(2*TP + FP + FN), (TP + TN) / (TP + TN + FP + FN)
+
 
 ##### Generate data
 
@@ -85,7 +120,7 @@ plt.plot(t1_4[:,2], color = "black")
 plt.subplot(4,1,4)
 plt.ylabel("t30")
 plt.plot(t1_4[:,3], color = "black")
-plt.show()
+# plt.show()
 plt.savefig("2327_20170131-03-zs_29-32.png")
 
 
@@ -146,17 +181,17 @@ for i in range(N):
     lcl[i] = LCL(i+1, 0, 8, sigma, lam)
 
 plt.plot(Y)
-plt.show()
+# plt.show()
 plt.plot(y)
-plt.show()
+# plt.show()
 plt.plot(Y_denoise)
 #plt.ylim((-2, 2))
-plt.show()
+# plt.show()
 
 plt.plot(Y_ewma)
 plt.plot(ucl)
 plt.plot(lcl)
-plt.show()
+# plt.show()
 
 outlier_u = np.where(Y_ewma > ucl)[0]
 outlier_l = np.where(Y_ewma < lcl)[0]
@@ -210,7 +245,7 @@ for i in range(N):
 plt.plot(Y_ewma)
 plt.plot(ucl_wrewma)
 plt.plot(lcl_wrewma)
-plt.show()
+# plt.show()
 
 
 
@@ -244,6 +279,11 @@ for j in range(J + 1):
     plt.subplot((J+3), 1, j+3)
     if j == 0:
         plt.ylabel("D")
+        result = stats(coef_ewma, ucl, lcl)
+        Y_gt = calibrate(coef_ewma)
+        recall, precision, F1, acc = f1calc(Y_gt, result)
+        print ("EWMA train set recall: ", recall,"; precision:", precision, "F1-score:", F1, "acc:", acc)
+        
     else:
         plt.ylabel("A" + str(J-j+1))
     plt.plot(coef_ewma, color = "black")
@@ -253,7 +293,7 @@ for j in range(J + 1):
     outlier_low.append(np.where(coef_ewma < lcl)[0])
 outlier_wdewma = np.union1d(np.concatenate(np.array(outlier_up)),
                             np.concatenate(np.array(outlier_low)))
-plt.show()
+# plt.show()
 
 
 
@@ -284,7 +324,7 @@ lcl_list.append(lcl)
 plt.plot(coef_ewma, color = "black")
 plt.plot(ucl)
 plt.plot(lcl)
-plt.show()
+# plt.show()
 
 data = [coef_ewma]
 data.append(coef_ewma)
@@ -307,7 +347,7 @@ plt.subplot(414)
 plt.plot(data[3], color = "black")
 plt.plot(ucl_list[3])
 plt.plot(lcl_list[3])
-plt.show()
+# plt.show()
 
 
 
