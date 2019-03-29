@@ -7,8 +7,8 @@ pipeline1-data_generation
 """
 
 import numpy as np
-from wavelet.wavelet import wavelet # 老方法
-# from wavelet.plot import wavelet # 新方法
+# from wavelet.wavelet import wavelet # 老方法
+from wavelet.plot import wavelet # 新方法
 from utils.utils import f1calc
 import time
 

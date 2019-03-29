@@ -29,7 +29,7 @@ XMAX = 1.0
 YMAX = 1.0
 
 # 小波变换的级数
-LEVEL = 2
+LEVEL = 6
 
 generateData(TRAIN, TEST, ABNORMAL_RATE, MIU, SIGMA, MIU_ABNORMAL, SIGMA_ABNORMAL, LEVEL)
 time_start = time.time()

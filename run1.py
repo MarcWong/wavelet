@@ -14,7 +14,7 @@ from svm.svm1 import doSvm
 TRAIN = 5000
 TEST = 5000
 # 异常数据占比
-ABNORMAL_RATE = 0.1
+ABNORMAL_RATE = 0.4
 # 正常数据的均值、方差
 MIU = 0
 SIGMA = 0.1
@@ -22,10 +22,10 @@ SIGMA = 0.1
 MIU_ABNORMAL = 0.5
 SIGMA_ABNORMAL = 0.1
 # 画图时的上下界
-XMIN = -3.0
-YMIN = -3.0
-XMAX = 3.0
-YMAX = 3.0
+XMIN = -4.0
+YMIN = -4.0
+XMAX = 4.0
+YMAX = 4.0
 
 # 小波变换的级数
 LEVEL = 2
