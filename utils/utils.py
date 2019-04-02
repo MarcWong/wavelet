@@ -1,6 +1,6 @@
 import numpy as np
 
-def f1calc(gt, pred):
+def f1calc(gt, pred, save_txt = False):
     print(gt.shape)
     print(pred.shape)
     ra = gt.shape[0]
@@ -30,10 +30,11 @@ def f1calc(gt, pred):
     print ('TN:', TN)
     print ('FP:', FP)
     print ('FN:', FN)
-    np.savetxt('TP.txt',TP_arr,fmt='%i')
-    np.savetxt('TN.txt',TN_arr,fmt='%i')
-    np.savetxt('FP.txt',FP_arr,fmt='%i')
-    np.savetxt('FN.txt',FN_arr,fmt='%i')
+    if (save_txt):
+        np.savetxt('TP.txt',TP_arr,fmt='%i')
+        np.savetxt('TN.txt',TN_arr,fmt='%i')
+        np.savetxt('FP.txt',FP_arr,fmt='%i')
+        np.savetxt('FN.txt',FN_arr,fmt='%i')
     if (TP+FP == 0):
         return TP/ (TP+FN), 0, 2*TP/(2*TP + FP + FN), (TP + TN) / (TP + TN + FP + FN)
     return TP/ (TP+FN), TP/ (TP+FP), 2*TP/(2*TP + FP + FN), (TP + TN) / (TP + TN + FP + FN)

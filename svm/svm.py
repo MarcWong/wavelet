@@ -32,5 +32,5 @@ def doSvm(X_train_path, X_test_path, Y_train_path, Y_test_path):
     n_error_test = y_pred_test[y_pred_test == 1].size
 
     # 统计精度，召回率
-    recall, precision, F1, acc = f1calc(Y_test, y_pred_test)
+    recall, precision, F1, acc = f1calc(Y_test, y_pred_test, True)
     print ("test set recall: ", recall,"; precision:", precision, "F1-score:", F1, "acc", acc)
