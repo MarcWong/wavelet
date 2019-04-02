@@ -199,7 +199,7 @@ def wavelet(Y, J):
     plt.plot(lcl_wrewma,color = "black")
 
     lam = 0.6
-    Lu = [3.6,20,25,30,40,40,40,40]
+    Lu = [3.054,20,25,30,40,40,40,40]
     Ll = [6.0,20,25,30,40,40,40,40]
 
     outlier_up = []
