@@ -16,7 +16,7 @@ import time
 
 i = 0
 LEVEL = 6
-do_wavelet = True
+do_wavelet = False
 do_calibration = True
 do_split = True
 do_stats = True

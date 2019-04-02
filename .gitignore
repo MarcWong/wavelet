@@ -1,3 +1,7 @@
 .vscode
 *.pyc
 .DS_Store
+TN.txt
+TP.txt
+FN.txt
+FP.txt
