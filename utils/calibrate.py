@@ -8,13 +8,13 @@ def calibrate(input_path, output_path, filename):
     # for i in range(0,1250):
     #     y_gt[i] = 1
     #     m += 1
-    for i in range(8346,14577):
+    for i in range(9346,13577):
         y_gt[i] = 1
         m += 1
     # for i in range(11512,11712):
     #     y_gt[i] = 1
     #     m += 1
-    for i in range(13069,19355):
+    for i in range(14069,18355):
         y_gt[i] = 1
         m += 1
 
