@@ -9,7 +9,7 @@ from utils.utils import stats
 #################### Set parameters
 
 # N = 5000
-tau = 3000
+tau = 4500
 mu = 0.0
 sd = 1
 wavelet_method = 'haar'
